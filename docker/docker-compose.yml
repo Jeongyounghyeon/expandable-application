@@ -1,0 +1,17 @@
+version: '2'
+
+name: expandable-application
+
+services:
+
+  proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    container_name: expandable-application-proxy
+    ports:
+      - "8080:80"
+    volumes:
+      - ./proxy/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+    restart: always
+    
