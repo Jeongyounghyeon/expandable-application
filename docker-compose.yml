@@ -1,0 +1,14 @@
+version: '2'
+
+name: expandable-application
+
+services:
+
+  auth:
+    build:
+      context: ./auth
+      dockerfile: docker/Dockerfile
+    container_name: expandable-application-auth
+    restart: always
+    ports:
+      - "8080:8080"
