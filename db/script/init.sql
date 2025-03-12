@@ -1,8 +1,8 @@
 -- 데이터베이스 생성
-CREATE DATABASE expandable_appliation;
+CREATE DATABASE expandable_application;
 
 -- 데이터베이스 이동
-USE expandable_appliation;
+USE expandable_application;
 
 -- 사용자 테이블 생성
 CREATE TABLE user (
@@ -23,5 +23,5 @@ CREATE TABLE authentication_details (
 
 -- 사용자 생성 및 권한 부여
 CREATE USER 'auth_user'@'%' IDENTIFIED BY '0000';
-GRANT ALL PRIVILEGES ON expandable_appliation.authentication_details TO 'auth_user'@'%';
+GRANT ALL PRIVILEGES ON expandable_application.authentication_details TO 'auth_user'@'%';
 FLUSH PRIVILEGES;

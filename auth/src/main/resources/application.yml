@@ -2,7 +2,7 @@ spring.application.name: expandable-application-auth
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:3306/expandable_application
+    url: jdbc:mysql://db:3306/expandable_application
     username: auth_user
     password: "0000"
     driver-class-name: com.mysql.cj.jdbc.Driver
