@@ -16,7 +16,7 @@ CREATE TABLE user (
 CREATE TABLE authentication_details (
     id VARCHAR(50) PRIMARY KEY,
     user_id BIGINT NOT NULL UNIQUE,
-    password VARCHAR(50) NOT NULL,
+    password VARCHAR(60) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
