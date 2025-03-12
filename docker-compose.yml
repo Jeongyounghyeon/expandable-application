@@ -23,3 +23,17 @@ services:
       dockerfile: docker/Dockerfile
     container_name: expandable-application-auth
     restart: always
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    container_name: expandable-application-db
+    restart: always
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
