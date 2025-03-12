@@ -14,7 +14,7 @@ CREATE TABLE user (
 
 -- 인증 정보 테이블 생성
 CREATE TABLE authentication_details (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id VARCHAR(50) PRIMARY KEY,
     user_id BIGINT NOT NULL UNIQUE,
     password VARCHAR(50) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
