@@ -9,7 +9,7 @@ CREATE TABLE user (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-	withdraw_at DATETIME DEFAULT CURRENT_TIMESTAMP
+	withdraw_at DATETIME DEFAULT NULL
 );
 
 -- 인증 정보 테이블 생성
@@ -17,11 +17,21 @@ CREATE TABLE authentication_details (
     id VARCHAR(50) PRIMARY KEY,
     user_id BIGINT NOT NULL UNIQUE,
     password VARCHAR(60) NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+);
+
+-- 인증 정보 테이블 생성
+CREATE TABLE refresh_token (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    token_value VARCHAR(255) NOT NULL,
+    expired_at DATETIME NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
 -- 사용자 생성 및 권한 부여
 CREATE USER 'auth_user'@'%' IDENTIFIED BY '0000';
-GRANT ALL PRIVILEGES ON expandable_application.authentication_details TO 'auth_user'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON expandable_application.authentication_details TO 'auth_user'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON expandable_application.refresh_token TO 'auth_user'@'%';
 FLUSH PRIVILEGES;
