@@ -5,7 +5,7 @@ import com.study.expandable_application_auth.exception.ExpandableException;
 import com.study.expandable_application_auth.model.dto.JwtTokenDto;
 import com.study.expandable_application_auth.model.entity.AuthenticationDetailsEntity;
 import com.study.expandable_application_auth.model.entity.RefreshTokenEntity;
-import com.study.expandable_application_auth.repository.AuthenticationDetailsEntityRepository;
+import com.study.expandable_application_auth.repository.AuthenticationDetailsRepository;
 import com.study.expandable_application_auth.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class AuthenticationServiceTest {
     private final AuthenticationService authenticationService;
 
     @MockitoBean
-    private final AuthenticationDetailsEntityRepository authenticationDetailsEntityRepository;
+    private final AuthenticationDetailsRepository authenticationDetailsRepository;
 
     @MockitoBean
     private final RefreshTokenRepository refreshTokenRepository;
@@ -49,11 +49,11 @@ class AuthenticationServiceTest {
         final String password = "password";
         final Long userId = 1L;
 
-        given(authenticationDetailsEntityRepository.existsById(id)).willReturn(false);
-        given(authenticationDetailsEntityRepository.save(Mockito.any())).willReturn(mock(AuthenticationDetailsEntity.class));
+        given(authenticationDetailsRepository.existsById(id)).willReturn(false);
+        given(authenticationDetailsRepository.save(Mockito.any())).willReturn(mock(AuthenticationDetailsEntity.class));
 
         authenticationService.createAuthentication(id, password, userId);
-        Mockito.verify(authenticationDetailsEntityRepository, Mockito.times(1)).save(Mockito.any());
+        Mockito.verify(authenticationDetailsRepository, Mockito.times(1)).save(Mockito.any());
     }
 
     @Test
@@ -62,7 +62,7 @@ class AuthenticationServiceTest {
         final String password = "password";
         final Long userId = 1L;
 
-        given(authenticationDetailsEntityRepository.existsById(id)).willReturn(true);
+        given(authenticationDetailsRepository.existsById(id)).willReturn(true);
 
         ExceptionCode existIdExceptionCode = assertThrows(
                 ExpandableException.class,
@@ -80,7 +80,7 @@ class AuthenticationServiceTest {
 
         // 1. user id 존재 여부 확인
         AuthenticationDetailsEntity authenticationDetailsEntity = mock(AuthenticationDetailsEntity.class);
-        given(authenticationDetailsEntityRepository.findById(id)).willReturn(Optional.of(authenticationDetailsEntity));
+        given(authenticationDetailsRepository.findById(id)).willReturn(Optional.of(authenticationDetailsEntity));
 
         // 2. 비밀번호 일치 여부 확인
         given(passwordEncoder.matches(password, authenticationDetailsEntity.getPassword())).willReturn(true);
@@ -108,7 +108,7 @@ class AuthenticationServiceTest {
 
         // 1. user id 존재 여부 확인
         AuthenticationDetailsEntity authenticationDetailsEntity = mock(AuthenticationDetailsEntity.class);
-        given(authenticationDetailsEntityRepository.findById(id)).willReturn(Optional.empty());
+        given(authenticationDetailsRepository.findById(id)).willReturn(Optional.empty());
 
         ExceptionCode invalidIdExceptionCode = assertThrows(
                 ExpandableException.class,
@@ -126,7 +126,7 @@ class AuthenticationServiceTest {
 
         // 1. user id 존재 여부 확인
         AuthenticationDetailsEntity authenticationDetailsEntity = mock(AuthenticationDetailsEntity.class);
-        given(authenticationDetailsEntityRepository.findById(id)).willReturn(Optional.of(authenticationDetailsEntity));
+        given(authenticationDetailsRepository.findById(id)).willReturn(Optional.of(authenticationDetailsEntity));
 
         // 2. 비밀번호 일치 여부 확인
         given(passwordEncoder.matches(password, authenticationDetailsEntity.getPassword())).willReturn(false);

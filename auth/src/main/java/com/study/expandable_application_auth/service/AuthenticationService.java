@@ -5,7 +5,7 @@ import com.study.expandable_application_auth.exception.ExpandableException;
 import com.study.expandable_application_auth.model.dto.JwtTokenDto;
 import com.study.expandable_application_auth.model.entity.AuthenticationDetailsEntity;
 import com.study.expandable_application_auth.model.entity.RefreshTokenEntity;
-import com.study.expandable_application_auth.repository.AuthenticationDetailsEntityRepository;
+import com.study.expandable_application_auth.repository.AuthenticationDetailsRepository;
 import com.study.expandable_application_auth.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -21,14 +21,14 @@ import java.time.LocalDateTime;
 @Log4j2
 public class AuthenticationService {
 
-    private final AuthenticationDetailsEntityRepository authenticationDetailsEntityRepository;
+    private final AuthenticationDetailsRepository authenticationDetailsRepository;
     private final RefreshTokenRepository refreshTokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenService jwtTokenService;
 
     @Transactional(readOnly = true)
     public boolean isExistId(String id) {
-        return authenticationDetailsEntityRepository.existsById(id);
+        return authenticationDetailsRepository.existsById(id);
     }
 
     public void createAuthentication(String id, String password, Long userId) {
@@ -42,14 +42,14 @@ public class AuthenticationService {
         AuthenticationDetailsEntity authenticationDetailsEntity = AuthenticationDetailsEntity.of(id, encodedPassword, userId);
 
         // 3. 인증 정보 저장
-        authenticationDetailsEntityRepository.save(authenticationDetailsEntity);
+        authenticationDetailsRepository.save(authenticationDetailsEntity);
 
         log.info("Authentication created: id: {}, userId: {}", id, userId);
     }
 
     public JwtTokenDto authenticate(String id, String password) {
         // 1. user id 존재 여부 확인
-        AuthenticationDetailsEntity authenticationDetailsEntity = authenticationDetailsEntityRepository.findById(id)
+        AuthenticationDetailsEntity authenticationDetailsEntity = authenticationDetailsRepository.findById(id)
                 .orElseThrow(() -> new ExpandableException(ExceptionCode.INVALID_ID));
 
         // 2. 비밀번호 일치 여부 확인
