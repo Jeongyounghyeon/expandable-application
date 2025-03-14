@@ -22,6 +22,8 @@ services:
       context: ./auth
       dockerfile: docker/Dockerfile
     container_name: expandable-application-auth
+    env_file:
+      - auth/.env
     restart: always
     depends_on:
       - db
