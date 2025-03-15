@@ -16,6 +16,7 @@ services:
     restart: always
     depends_on:
       - auth
+      - board
 
   auth:
     build:
@@ -24,6 +25,15 @@ services:
     container_name: expandable-application-auth
     env_file:
       - auth/.env
+    restart: always
+    depends_on:
+      - db
+
+  board:
+    build:
+      context: ./board
+      dockerfile: docker/Dockerfile
+    container_name: expandable-application-board
     restart: always
     depends_on:
       - db
