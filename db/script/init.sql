@@ -47,7 +47,6 @@ CREATE TABLE board_comment (
     writer_id BIGINT NOT NULL,
     board_id BIGINT NOT NULL,
     root_comment_id BIGINT NOT NULL,
-    title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME,
