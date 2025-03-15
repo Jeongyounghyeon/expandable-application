@@ -34,20 +34,20 @@ CREATE TABLE refresh_token (
 CREATE TABLE board (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     writer_id BIGINT NOT NULL,
-    subject VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
     created_at DATETIME,
     last_modified_at DATETIME,
     FOREIGN KEY (writer_id) REFERENCES user(id)
 );
 
--- 게판 댓글 테이블 생성
+-- 게시판 댓글 테이블 생성
 CREATE TABLE board_comment (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     writer_id BIGINT NOT NULL,
     board_id BIGINT NOT NULL,
     root_comment_id BIGINT NOT NULL,
-    subject VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
     created_at DATETIME,
     last_modified_at DATETIME,
