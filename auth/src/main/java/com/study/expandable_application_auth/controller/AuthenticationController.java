@@ -43,14 +43,14 @@ public class AuthenticationController {
     }
 
     @GetMapping("/access")
-    public ResponseEntity<Void> access(@RequestHeader(HttpHeaders.AUTHORIZATION) String accessToken) {
+    public ResponseEntity<Long> access(@RequestHeader(HttpHeaders.AUTHORIZATION) String accessToken) {
         if (!accessToken.startsWith(BEARER_PREFIX)) {
             throw new ExpandableException(ExceptionCode.INVALID_TOKEN);
         }
 
-        authenticationService.access(accessToken.substring(BEARER_PREFIX.length()));
+        Long userId = authenticationService.access(accessToken.substring(BEARER_PREFIX.length()));
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).body(userId);
     }
 
     @PostMapping("/refresh")
