@@ -71,8 +71,10 @@ public class AuthenticationService {
         return jwtTokenDto;
     }
 
-    public void access(String accessToken) {
+    public Long access(String accessToken) {
         jwtTokenService.validateToken(accessToken);
+
+        return jwtTokenService.getUserId(accessToken);
     }
 
     public JwtTokenDto refresh(String refreshToken) {
