@@ -37,7 +37,7 @@ CREATE TABLE board (
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    last_modified_at DATETIME,
+    updated_at DATETIME,
     FOREIGN KEY (writer_id) REFERENCES user(id)
 );
 
@@ -50,7 +50,7 @@ CREATE TABLE board_comment (
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    last_modified_at DATETIME,
+    updated_at DATETIME,
     FOREIGN KEY (writer_id) REFERENCES user(id)
 );
 
