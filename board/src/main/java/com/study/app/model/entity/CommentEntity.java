@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "\"board_comment\"", indexes = {
@@ -22,11 +23,11 @@ public class CommentEntity {
     @Column(name = "writer_id", nullable = false)
     private Long writerId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "board_id", nullable = false)
     private BoardEntity board;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "root_comment_id")
     private CommentEntity rootComment;
 
@@ -36,8 +37,11 @@ public class CommentEntity {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "rootComment", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<CommentEntity> childComments;
 
     @Builder
     private CommentEntity(Long writerId, BoardEntity board, CommentEntity rootComment, String content) {
