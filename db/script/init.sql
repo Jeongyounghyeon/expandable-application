@@ -46,7 +46,7 @@ CREATE TABLE board_comment (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     writer_id BIGINT NOT NULL,
     board_id BIGINT NOT NULL,
-    root_comment_id BIGINT NOT NULL,
+    root_comment_id BIGINT,
     content TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME,
