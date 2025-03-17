@@ -1,0 +1,26 @@
+spring.application.name: expandable-application-board
+
+spring:
+  datasource:
+    url: jdbc:mysql://db:3306/expandable_application
+    username: board_user
+    password: "0000"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  jackson:
+    date-format: java.text.SimpleDateFormat
+    time-zone: Asia/Seoul
+
+feign:
+  client:
+    url:
+      authentication-service: http://auth:8080
