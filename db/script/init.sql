@@ -56,10 +56,12 @@ CREATE TABLE board_comment (
 -- 사용자 생성 및 권한 부여
 CREATE USER 'auth_user'@'%' IDENTIFIED BY '0000';
 CREATE USER 'board_user'@'%' IDENTIFIED BY '0000';
+CREATE USER 'user_management_user'@'%' IDENTIFIED BY '0000';
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON expandable_application.authentication_details TO 'auth_user'@'%';
 GRANT SELECT, INSERT, UPDATE, DELETE ON expandable_application.refresh_token TO 'auth_user'@'%';
 GRANT SELECT, INSERT, UPDATE, DELETE ON expandable_application.board TO 'board_user'@'%';
 GRANT SELECT, INSERT, UPDATE, DELETE ON expandable_application.board_comment TO 'board_user'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON expandable_application.user TO 'user_management_user'@'%';
 
 FLUSH PRIVILEGES;

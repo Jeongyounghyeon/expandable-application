@@ -29,6 +29,15 @@ services:
     depends_on:
       - db
 
+  user-management:
+    build:
+      context: ./user-management
+      dockerfile: docker/Dockerfile
+    container_name: expandable-application-user-management
+    restart: always
+    depends_on:
+      - db
+
   board:
     build:
       context: ./board
