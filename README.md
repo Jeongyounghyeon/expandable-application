@@ -85,4 +85,4 @@ docker compose up --build
 ---
 
 ## 주요 Issue
-- #22 - [Bug] 유저 생성시 트랜잭션 생성 후 인증 서버를 이용한 인증 생성으로 인한 데드락 발생
+- [#22](https://github.com/Jeongyounghyeon/expandable-application/issues/22) - [Bug] 유저 생성시 트랜잭션 생성 후 인증 서버를 이용한 인증 생성으로 인한 데드락 발생
