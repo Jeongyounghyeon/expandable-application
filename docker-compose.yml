@@ -17,11 +17,12 @@ services:
     depends_on:
       - auth
       - board
+      - user-management
 
   auth:
     build:
       context: ./auth
-      dockerfile: docker/Dockerfile
+      dockerfile: ../spring.Dockerfile
     container_name: expandable-application-auth
     env_file:
       - auth/.env
@@ -32,7 +33,7 @@ services:
   user-management:
     build:
       context: ./user-management
-      dockerfile: docker/Dockerfile
+      dockerfile: ../spring.Dockerfile
     container_name: expandable-application-user-management
     restart: always
     depends_on:
@@ -41,7 +42,7 @@ services:
   board:
     build:
       context: ./board
-      dockerfile: docker/Dockerfile
+      dockerfile: ../spring.Dockerfile
     container_name: expandable-application-board
     restart: always
     depends_on:
