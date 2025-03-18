@@ -17,6 +17,7 @@ services:
     depends_on:
       - auth
       - board
+      - user-management
 
   auth:
     build:
